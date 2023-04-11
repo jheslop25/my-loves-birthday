@@ -2,76 +2,17 @@
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
       <v-card class="logo py-4 d-flex justify-center">
-        <NuxtLogo />
         <VuetifyLogo />
       </v-card>
       <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
+        <v-row class="my-2 mx-2" justify="center">
+          <h1>Happy Birthday Mayra Paola My Love<v-icon>mdi-heart</v-icon></h1>
+        </v-row>
+
+        <v-row class="my-2 mx-2" justify="center">
+          <p>{{ remainingTime.text }}</p>
+        </v-row>
+        <v-card-actions v-if="showButton">
           <v-spacer />
           <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
         </v-card-actions>
@@ -83,5 +24,29 @@
 <script>
 export default {
   name: 'IndexPage',
+  computed: {
+    // a function that calculates the remaining time until April 11th 2023 at 8:00 pm (GMT-5) and display the date in a human readable format
+    remainingTime() {
+      const now = new Date()
+      const birthday = new Date(2023, 4, 11, 20, 0, 0, 0)
+      const difference = birthday.getTime() - now.getTime()
+      const remainingTime = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor(
+          (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        ),
+        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((difference % (1000 * 60)) / 1000),
+      }
+
+      return {
+        data: remainingTime,
+        text: `There are 0 days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes and ${remainingTime.seconds} seconds until your birthday present reveal! :)`,
+      }
+    },
+    showButton() {
+      return this.remainingTime.data.days <= 0
+    },
+  },
 }
 </script>
