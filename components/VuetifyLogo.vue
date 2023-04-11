@@ -1,5 +1,5 @@
 <template>
-  <img class="vuetify-logo" alt="Vuetify Logo" :src="require('~/assets/IMG_5750.jpeg')" />
+  <img class="vuetify-logo" alt="Vuetify Logo" :src="require('~/static/IMG_5750.jpeg')" />
 </template>
 
 <style>
